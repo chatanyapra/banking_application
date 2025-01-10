@@ -1,3 +1,4 @@
+"use client"
 import {
   Sheet,
   SheetContent,
@@ -6,13 +7,22 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import Image from "next/image"
 
 const MobileNav = ({user}: MobileNavProps) => {
   return (
-    <section>
+    <section className="w-full max-w-[264px]">
       <Sheet>
-        <SheetTrigger>Open</SheetTrigger>
-        <SheetContent>
+        <SheetTrigger>
+          <Image
+            src="/icons/hamburger.svg"
+            width={30}
+            height={30}
+            alt="menu"
+            className="cursor-pointer"
+          />
+        </SheetTrigger>
+        <SheetContent side="left">
           <SheetHeader>
             <SheetTitle>Are you absolutely sure?</SheetTitle>
             <SheetDescription>
@@ -25,5 +35,4 @@ const MobileNav = ({user}: MobileNavProps) => {
     </section>
   )
 }
-
 export default MobileNav
