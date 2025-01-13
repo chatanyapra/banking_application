@@ -34,19 +34,23 @@ const AuthForm = ({ type }: { type: string }) => {
   const  onSubmit = async(values: z.infer<typeof formSchema>) => {
     setIsLoading(true)
     try {
-      if(type === 'sign-up') {
-        const newUser = await signUp(values)
-        setUser(newUser)
-      }
-      if(type === 'sign-in') {
-        const response = await signIn({
-          email: values.email,
-          password: values.password
-        })
-        if(response) {
-          setUser(response)
-          router.push('/')
+      if (type === 'sign-up') {
+        const newUser = await signUp(values);
+        console.log(newUser);
+        if (newUser != null) {
+          setUser(newUser);
         }
+      }
+    
+      if(type === 'sign-in') {
+        // const response = await signIn({
+        //   email: values.email,
+        //   password: values.password
+        // })
+        // if(response) {
+        //   setUser(response)
+        //   router.push('/')
+        // }
       }
     } catch (error) {
       console.log(error)
@@ -72,9 +76,9 @@ const AuthForm = ({ type }: { type: string }) => {
           <h1 className='text-24 lg-text-36 font-semibold text-gray-900'>
             {user
               ? 'Link Account'
-              : type === 'sign-up'
-                ? 'Sign in'
-                : 'Sign up'
+              : type === 'sign-in'
+                ? 'Sign In'
+                : 'Sign Up'
             }
             <p className='text-16 font-normal text-gray-600'>
               {user ? 'Link your account to continue' : 'Please enter your details'}
