@@ -27,8 +27,8 @@ export const signIn = async ({ email, password }: signInProps) => {
         console.log("Error signing in user: ", error);
     }
 }
-export const signUp = async (userData: SignUpParams) => {
-    const { email, password, firstName, lastName } = userData;
+export const signUp = async ({ password, ...userData}: SignUpParams) => {
+    const { email, firstName, lastName } = userData;
     let newUserAccount;
     try {
         const { account, database } = await createAdminClient();
@@ -106,7 +106,7 @@ export const createLinkToken = async (user: User) => {
             user: {
                 client_user_id: user.$id
             },
-            client_name: user.name,
+            client_name: `${user.firstName} ${user.lastName}`,
             products: ['auth'] as Products[],
             language: 'en',
             country_codes: ['US'] as CountryCode[],
@@ -143,7 +143,7 @@ export const createBankAccount = async ({
         );
         return parseStringify(bankAccount);
     } catch (error) {
-        // Handle error  
+        console.log("Error creating bank account: ", error); 
     }
 };
 export const exchangePublicToken = async ({

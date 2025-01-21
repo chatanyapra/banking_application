@@ -36,7 +36,21 @@ const AuthForm = ({ type }: { type: string }) => {
     setIsLoading(true)
     try {
       if (type === 'sign-up') {
-        const newUser = await signUp(values);
+
+        const userData = {
+          firstName: values.firstName!,
+          lastName: values.lastName!,
+          email: values.email,
+          password: values.password,
+          address1: values.address1!,
+          city: values.city!,
+          state: values.state!,
+          postalCode: values.postalCode!,
+          dateOfBirth: values.dateOfBirth!,
+          ssn: values.ssn!,
+        }
+
+        const newUser = await signUp(userData);
         console.log(newUser);
         if (newUser != null) {
           setUser(newUser);
