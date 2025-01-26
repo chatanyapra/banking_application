@@ -1,16 +1,16 @@
 import HeaderBox from '@/components/ui/HeaderBox'
+import RecentTransactions from '@/components/ui/RecentTransactions';
 import RightSidebar from '@/components/ui/RightSidebar'
 import TotalBalanceBox from '@/components/ui/TotalBalanceBox'
 import { getAccount, getAccounts } from '@/lib/actions/bank.action';
 import { getLoggedInUser } from '@/lib/actions/user.action';
 import { redirect } from 'next/navigation';
 
-// const Home = async ({ searchParams:{ id, page } }: SearchParamProps) => {
 const Home = async ({ searchParams:{ id, page } }: SearchParamProps) => {
-  // const { id, page } = searchParams;
+  
+  const currentPage = Number(page as string) || 1;
   
   const loggedIn = await getLoggedInUser();
-  console.log("loggedIn,----------------"+ loggedIn.$id);
   
   const accounts = await getAccounts({
     userId: loggedIn.$id
@@ -22,7 +22,7 @@ const Home = async ({ searchParams:{ id, page } }: SearchParamProps) => {
   const appwriteItemId = (id as string) || accountsData[0]?.appwriteItemId;
   const account = await getAccount({ appwriteItemId });
 
-  console.log("cccccccccccccccccccc---------========"+{ account, accountsData });
+  // console.log("cccccccccccccccccccc---------========"+{ account, accountsData });
   
 
   return (
@@ -41,7 +41,12 @@ const Home = async ({ searchParams:{ id, page } }: SearchParamProps) => {
             totalCurrentBalance={accounts?.totalCurrentBalance}
           />
         </header>
-        RECENT TRANSACTION
+        <RecentTransactions 
+          accounts={accountsData}
+          transactions={account?.transactions}
+          appwriteItemId={appwriteItemId}
+          page={currentPage}
+        />
       </div>
       <RightSidebar
         user={loggedIn}

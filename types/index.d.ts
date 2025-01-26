@@ -92,12 +92,7 @@ declare type Bank = {
   sharableId: string;
 };
 
-declare type AccountTypes =
-  | "depository"
-  | "credit"
-  | "loan "
-  | "investment"
-  | "other";
+declare type AccountTypes = | "depository" | "credit" | "loan " | "investment" | "other";
 
 declare type Category = "Food and Drink" | "Travel" | "Transfer";
 
