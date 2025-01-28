@@ -58,4 +58,4 @@ export const getTransactionsByBankId = async ({bankId}: getTransactionsByBankIdP
   } catch (error) {
     console.log(error);
   }
-}
+} 
