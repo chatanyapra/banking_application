@@ -19,7 +19,7 @@ import { getBanks, getBank } from "./user.action";
 export const getAccounts = async ({ userId }: getAccountsProps) => {
     try {
         // get banks from db
-        
+
         const banks = await getBanks({ userId });
 
         const accounts = await Promise.all(
@@ -48,7 +48,7 @@ export const getAccounts = async ({ userId }: getAccountsProps) => {
                     appwriteItemId: bank.$id,
                     shareableId: bank.shareableId,
                 };
-             
+
                 return account;
             })
         );
@@ -59,7 +59,7 @@ export const getAccounts = async ({ userId }: getAccountsProps) => {
         }, 0);
 
         return parseStringify({ data: accounts, totalBanks, totalCurrentBalance });
-        
+
     } catch (error) {
         console.error("An error occurred while getting the accounts:", error);
     }
@@ -99,9 +99,11 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
             institutionId: accountsResponse.data.item.institution_id!,
         });
 
-        const transactions = await getTransactions({
-            accessToken: bank?.accessToken,
-        });
+        console.log("bank?.accessToken---------********----------" + bank?.accessToken);
+
+        // const transactions = await getTransactions({
+        //     accessToken: bank?.accessToken,
+        // });
 
         const account = {
             id: accountData.account_id,
@@ -118,7 +120,7 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
 
         // sort transactions by date such that the most recent transaction is first
         // const allTransactions = [...transactions ].sort(
-        const allTransactions = [...transactions, ...transferTransactions].sort(
+        const allTransactions = [ ...transferTransactions].sort(
             (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
         );
 
@@ -155,15 +157,20 @@ export const getTransactions = async ({
 }: getTransactionsProps) => {
     let hasMore = true;
     let transactions: any = [];
+    console.log("accessToken++" + accessToken);
 
     try {
         // Iterate through each page of new transaction updates for item
         while (hasMore) {
+            const itemResponse = await plaidClient.itemGet({ access_token: accessToken });
+            console.log("Billed Products:", itemResponse.data.item.billed_products);
+
             const response = await plaidClient.transactionsSync({
                 access_token: accessToken,
             });
-
             const data = response.data;
+            console.log("datadatadatadatadatadata----" + data);
+
 
             transactions = response.data.added.map((transaction) => ({
                 id: transaction.transaction_id,
@@ -180,7 +187,7 @@ export const getTransactions = async ({
 
             hasMore = data.has_more;
         }
-
+        console.log("API Response:", transactions);
         return parseStringify(transactions);
     } catch (error) {
         console.error("An error occurred while getting the accounts:", error);

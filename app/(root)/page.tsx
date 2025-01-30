@@ -6,7 +6,7 @@ import { getAccount, getAccounts } from '@/lib/actions/bank.action';
 import { getLoggedInUser } from '@/lib/actions/user.action';
 import { redirect } from 'next/navigation';
 
-const Home = async ({ searchParams:{ id, page } }: SearchParamProps) => {
+const Home = async ({ searchParams: { id, page }}:SearchParamProps) => {
   
   const currentPage = Number(page as string) || 1;
   
@@ -51,7 +51,7 @@ const Home = async ({ searchParams:{ id, page } }: SearchParamProps) => {
       </div>
       <RightSidebar
         user={loggedIn}
-        transactions={accounts?.transactions}
+        transactions={account?.transactions}
         banks={accountsData?.slice(0, 2)}
       />
     </section>
