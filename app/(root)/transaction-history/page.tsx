@@ -1,9 +1,9 @@
 import HeaderBox from '@/components/ui/HeaderBox';
+import Pagination from '@/components/ui/Pagination';
 import TransactionsTable from '@/components/ui/TransactionsTable';
 import { getAccounts, getAccount } from '@/lib/actions/bank.action';
 import { getLoggedInUser } from '@/lib/actions/user.action';
 import { formatAmount } from '@/lib/utils';
-import { Pagination } from '@/components/ui/Pagination';
 
 const TransactionHistory = async ({ searchParams: { id, page }}:SearchParamProps) => {
   const currentPage = Number(page as string) || 1;
