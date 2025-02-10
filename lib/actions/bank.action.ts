@@ -99,7 +99,7 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
             institutionId: accountsResponse.data.item.institution_id!,
         });
 
-        console.log("bank?.accessToken---------********----------" + bank?.accessToken);
+        // console.log("bank?.accessToken---------********----------" + bank?.accessToken);
 
         // const transactions = await getTransactions({
         //     accessToken: bank?.accessToken,

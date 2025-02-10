@@ -234,14 +234,14 @@ export const exchangePublicToken = async ({
 export const getBanks = async ({ userId }: getBanksProps) => {
     try {
         const { database } = await createAdminClient();
-        console.log("database-------------"+database+"userId**************"+userId);
+        // console.log("database-------------"+database+"userId**************"+userId);
         
         const banks = await database.listDocuments(
             DATABASE_ID!,
             BANK_COLLECTION_ID!,
             [Query.equal('userId', [userId])]
         );
-        console.log("+++++++++++++++++++++++++banks.documents+++++++==="+banks.documents);
+        // console.log("+++++++++++++++++++++++++banks.documents+++++++==="+banks.documents);
         
         return parseStringify(banks.documents);
     } catch (error) {
@@ -249,7 +249,7 @@ export const getBanks = async ({ userId }: getBanksProps) => {
     }
 };
 export const getBank = async ({ documentId }: getBankProps) => {
-    console.log("documentId is------------", documentId);
+    // console.log("documentId is------------", documentId);
     
     try {
         const { database } = await createAdminClient();

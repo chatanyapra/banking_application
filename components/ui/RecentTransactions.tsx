@@ -5,6 +5,7 @@ import BankInfo from './BankInfo'
 import TransactionsTable from './TransactionsTable'
 import Pagination from './Pagination'
 
+
 const RecentTransactions = ({
     accounts,
     transactions = [],

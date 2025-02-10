@@ -6,9 +6,9 @@ import { countTransactionCategories } from '@/lib/utils';
 import Category from './Category';
 
 const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
-    console.log(user);
+    // console.log(user);
     const categories: CategoryCount[] = countTransactionCategories(transactions);
-    console.log("categories"+{categories});
+    // console.log("categories"+{categories});
     
 
     return (
